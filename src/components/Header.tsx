@@ -12,7 +12,7 @@ const Header: React.FC = () => {
         </div>
         <div className="flex items-center space-x-4">
           <a 
-            href="https://github.com" 
+            href="https://github.com/kumanorihjkl/table_conv"
             target="_blank" 
             rel="noopener noreferrer"
             className="text-slate-300 hover:text-white transition-colors"
