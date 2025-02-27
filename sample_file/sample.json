@@ -1,0 +1,37 @@
+[
+  {
+    "ID": "1",
+    "Name": "John Smith",
+    "Age": "35",
+    "Department": "Engineering",
+    "Salary": "85000"
+  },
+  {
+    "ID": "2",
+    "Name": "Jane Doe",
+    "Age": "28",
+    "Department": "Marketing",
+    "Salary": "72000"
+  },
+  {
+    "ID": "3",
+    "Name": "Robert Johnson",
+    "Age": "42",
+    "Department": "Finance",
+    "Salary": "95000"
+  },
+  {
+    "ID": "4",
+    "Name": "Emily Williams",
+    "Age": "31",
+    "Department": "Human Resources",
+    "Salary": "68000"
+  },
+  {
+    "ID": "5",
+    "Name": "Michael Brown",
+    "Age": "39",
+    "Department": "Engineering",
+    "Salary": "92000"
+  }
+]
