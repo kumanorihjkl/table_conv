@@ -33,7 +33,7 @@ export const parseCSV = (csvText: string, options: CSVOptions): TableData => {
   } else if (data.length > 0) {
     // Generate column names (Column 1, Column 2, etc.)
     const firstRow = data[0];
-    columns = Object.keys(firstRow).map((key, index) => ({
+    columns = Object.keys(firstRow).map((_, index) => ({
       id: `column_${index}`,
       name: `Column ${index + 1}`,
       index,

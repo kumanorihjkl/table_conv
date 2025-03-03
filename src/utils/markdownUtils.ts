@@ -47,9 +47,8 @@ export const parseMarkdown = (markdownText: string): TableData => {
     index,
   }));
   
-  // Parse alignment from separator line
-  const separatorLine = lines[separatorLineIndex];
-  const alignments = parseAlignmentRow(separatorLine);
+  // Separator line exists at lines[separatorLineIndex]
+  // We could use it for alignment parsing in the future
   
   // Parse data rows (lines after separator)
   const dataLines = lines.slice(separatorLineIndex + 1);
@@ -90,22 +89,7 @@ const parseMarkdownRow = (line: string): string[] => {
   return trimmedLine.split('|').map(cell => cell.trim());
 };
 
-// Parse alignment from separator row
-const parseAlignmentRow = (line: string): ('left' | 'center' | 'right')[] => {
-  const cells = parseMarkdownRow(line);
-  
-  return cells.map(cell => {
-    const trimmed = cell.trim();
-    
-    if (trimmed.startsWith(':') && trimmed.endsWith(':')) {
-      return 'center';
-    } else if (trimmed.endsWith(':')) {
-      return 'right';
-    } else {
-      return 'left';
-    }
-  });
-};
+// Helper functions for alignment can be added here if needed in the future
 
 // Export TableData to Markdown
 export const exportToMarkdown = (tableData: TableData, options: MarkdownOptions): string => {
@@ -119,7 +103,7 @@ export const exportToMarkdown = (tableData: TableData, options: MarkdownOptions)
   const headerRow = '| ' + columns.map(col => col.name).join(' | ') + ' |';
   
   // Create separator row with alignment
-  const separatorRow = '| ' + columns.map((col, index) => {
+  const separatorRow = '| ' + columns.map((_, index) => {
     const alignment = options.alignment[index] || 'left';
     
     switch (alignment) {

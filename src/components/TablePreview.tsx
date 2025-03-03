@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TableData, TableColumn, TableRow } from '../types';
+import { TableData, TableRow } from '../types';
 import { FaSort, FaSortUp, FaSortDown, FaTrash, FaPlus, FaPen } from 'react-icons/fa';
 
 interface TablePreviewProps {

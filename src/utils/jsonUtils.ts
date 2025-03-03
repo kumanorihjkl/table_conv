@@ -116,7 +116,7 @@ const parseFallback = (data: any): TableData => {
   // Recursive function to flatten JSON
   const flattenJSON = (obj: any, prefix = '') => {
     if (typeof obj === 'object' && obj !== null) {
-      Object.keys(obj).forEach((key, index) => {
+      Object.keys(obj).forEach((key) => {
         const fullKey = prefix ? `${prefix}.${key}` : key;
         
         if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
