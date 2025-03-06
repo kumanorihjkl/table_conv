@@ -98,25 +98,28 @@ const Sidebar: React.FC<SidebarProps> = ({
       <div className="mb-6">
         <h2 className="text-lg font-semibold mb-2">入力形式</h2>
         <div className="space-y-2">
-          {Object.entries(formatNames).map(([format, name]) => (
-            <button
-              key={format}
-              className={`flex items-center space-x-2 px-3 py-2 w-full rounded-md ${
-                selectedFormat === format
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'hover:bg-slate-200'
-              }`}
-              onClick={() => onFormatChange(format as FormatType)}
-            >
-              <span className="text-slate-600">{formatIcons[format as FormatType]}</span>
-              <span>{name}</span>
-              {detectedFormat === format && (
-                <span className="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
-                  検出
-                </span>
-              )}
-            </button>
-          ))}
+          {Object.entries(formatNames).map(([format, name]) => {
+            if (format === 'tex') return null;
+            return (
+              <button
+                key={format}
+                className={`flex items-center space-x-2 px-3 py-2 w-full rounded-md ${
+                  selectedFormat === format
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'hover:bg-slate-200'
+                }`}
+                onClick={() => onFormatChange(format as FormatType)}
+              >
+                <span className="text-slate-600">{formatIcons[format as FormatType]}</span>
+                <span>{name}</span>
+                {detectedFormat === format && (
+                  <span className="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                    検出
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -233,6 +236,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         )}
 
         {/* TeX Options */}
+        {/*
         {selectedFormat === 'tex' && (
           <div className="space-y-3">
             <div>
@@ -296,6 +300,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
           </div>
         )}
+        */}
       </div>
     </div>
   );
