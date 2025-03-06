@@ -214,4 +214,4 @@ table_conv/
 
 ---
 
-© 2025 TableConv - テーブル形式変換ツール
+© 2025 [kumanorihjkl](https://github.com/kumanorihjkl) - テーブル形式変換ツール
