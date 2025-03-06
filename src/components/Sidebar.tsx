@@ -81,17 +81,17 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   // Handle TeX options change
-  const handleTexOptionChange = (
-    key: keyof FormatOptions['tex'],
-    value: any
-  ) => {
-    onFormatOptionsChange({
-      tex: {
-        ...formatOptions.tex,
-        [key]: value,
-      },
-    });
-  };
+  // const handleTexOptionChange = (
+  //   key: keyof FormatOptions['tex'],
+  //   value: any
+  // ) => {
+  //   onFormatOptionsChange({
+  //     tex: {
+  //       ...formatOptions.tex,
+  //       [key]: value,
+  //     },
+  //   });
+  // };
 
   return (
     <div className="bg-slate-100 w-64 p-4 border-r border-slate-200 h-full overflow-y-auto">
