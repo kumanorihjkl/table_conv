@@ -51,7 +51,7 @@ const InputArea: React.FC<InputAreaProps> = ({
       'application/json': ['.json'],
       'text/markdown': ['.md'],
       'text/html': ['.html'],
-      'text/x-tex': ['.tex'],
+      // 'text/x-tex': ['.tex'],
     },
     multiple: false,
   });
@@ -134,7 +134,8 @@ const InputArea: React.FC<InputAreaProps> = ({
                 ファイルをドラッグ＆ドロップするか、クリックして選択してください
               </p>
               <p className="text-xs mt-1">
-                対応形式: CSV, JSON, Markdown, HTML, TeX
+                {/* 対応形式: CSV, JSON, Markdown, HTML, TeX */}
+                対応形式: CSV, JSON, Markdown, HTML
               </p>
             </>
           )}

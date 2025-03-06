@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
@@ -75,6 +75,21 @@ function App() {
       setIsProcessing(false);
     }
   };
+
+  useEffect(() => {
+    // It is necessary to update the table data even after detectFormat() is completed
+    setIsProcessing(true);
+    setTimeout(() => {
+      try {
+        const parsedData = parseTable(inputText, inputFormat, formatOptions);
+        setTableData(parsedData);
+      } catch (error) {
+        console.error('Error parsing table data:', error);
+      } finally {
+        setIsProcessing(false);
+      }
+    }, 0);
+  }, [inputFormat]);
 
   // Handle input format change
   const handleInputFormatChange = (format: FormatType) => {
