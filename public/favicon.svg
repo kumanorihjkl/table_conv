@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg 
+    width="64" height="64" 
+    viewBox="0 0 64 64" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg">
+
+  <!-- グリッド(テーブル)部分: 3×3の四角形を配置 -->
+  <rect x="10" y="10" width="12" height="12" stroke="#4CAF50" fill="none" stroke-width="2"></rect>
+  <rect x="24" y="10" width="12" height="12" stroke="#4CAF50" fill="none" stroke-width="2"></rect>
+  <rect x="38" y="10" width="12" height="12" stroke="#4CAF50" fill="none" stroke-width="2"></rect>
+
+  <rect x="10" y="24" width="12" height="12" stroke="#4CAF50" fill="none" stroke-width="2"></rect>
+  <rect x="24" y="24" width="12" height="12" stroke="#4CAF50" fill="none" stroke-width="2"></rect>
+  <rect x="38" y="24" width="12" height="12" stroke="#4CAF50" fill="none" stroke-width="2"></rect>
+
+  <rect x="10" y="38" width="12" height="12" stroke="#4CAF50" fill="none" stroke-width="2"></rect>
+  <rect x="24" y="38" width="12" height="12" stroke="#4CAF50" fill="none" stroke-width="2"></rect>
+  <rect x="38" y="38" width="12" height="12" stroke="#4CAF50" fill="none" stroke-width="2"></rect>
+
+  <!-- 円弧状の矢印（変換・リロードのイメージ） -->
+  <!-- ここでは上から右に回り込む半円のイメージ。デザイン次第で形状は自由に変更可能です。 -->
+  <path 
+    d="M32 5 
+       A27 27 0 0 1 59 32 
+       L55 30 
+       M59 32 
+       L61 38" 
+    stroke="#4CAF50" 
+    stroke-width="2" 
+    fill="none" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"/>
+</svg>
