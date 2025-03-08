@@ -18,24 +18,28 @@ export const parseCSV = (csvText: string, options: CSVOptions): TableData => {
     console.error('CSV parsing errors:', parseResult.errors);
   }
 
-  const data = parseResult.data as Record<string, string>[];
+  let data: any[] = parseResult.data;
+  // When header is false, Papa.parse returns an array of arrays
+  // We need to convert it to an array of objects with column keys
+  if (!options.hasHeader && data.length > 0 && Array.isArray(data[0])) {
+    const arrayData = data as string[][];
+    data = arrayData.map(row => {
+      const obj: Record<string, string> = {};
+      row.forEach((value, index) => {
+        obj[`column_${index}`] = value;
+      });
+      return obj;
+    });
+  }
   
   // Create columns
   let columns: TableColumn[] = [];
   
-  if (options.hasHeader && data.length > 0) {
-    // Use header row for column names
+  if (data.length > 0) {
+    // Generate column names
     columns = Object.keys(data[0]).map((key, index) => ({
       id: key,
-      name: key,
-      index,
-    }));
-  } else if (data.length > 0) {
-    // Generate column names (Column 1, Column 2, etc.)
-    const firstRow = data[0];
-    columns = Object.keys(firstRow).map((_, index) => ({
-      id: `column_${index}`,
-      name: `Column ${index + 1}`,
+      name: options.hasHeader ? key : `Column ${index + 1}`,
       index,
     }));
   }
