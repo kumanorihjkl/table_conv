@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import Header from './components/Header';
-import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import InputArea from './components/InputArea';
+import InputFormatTabs from './components/InputFormatTabs';
+import InputOptions from './components/InputOptions';
 import TablePreview from './components/TablePreview';
 import FormatTabs from './components/FormatTabs';
+import OutputOptions from './components/OutputOptions';
 import OutputArea from './components/OutputArea';
 import { 
   TableData, 
@@ -147,56 +149,69 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
       <Header />
-      
-      <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <Sidebar
-          detectedFormat={detectedFormats.length > 0 ? detectedFormats[0].format : null}
-          selectedFormat={inputFormat}
-          onFormatChange={handleInputFormatChange}
-          formatOptions={formatOptions}
-          onFormatOptionsChange={handleFormatOptionsChange}
-        />
-        
-        {/* Main content */}
-        <main className="flex-1 p-6 overflow-y-auto">
-          <div className="container mx-auto">
-            <div className="grid grid-cols-1 gap-6">
-              {/* Input area */}
-              <InputArea
-                onTextInput={handleInputTextChange}
-                detectedFormats={detectedFormats}
-                isProcessing={isProcessing}
+
+      {/* Main content */}
+      <main className="flex-1 p-6 overflow-y-auto">
+        <div className="container mx-auto max-w-5xl">
+          <div className="grid grid-cols-1 gap-6">
+            {/* Input area */}
+            <InputArea
+              onTextInput={handleInputTextChange}
+              detectedFormats={detectedFormats}
+              isProcessing={isProcessing}
+            />
+
+            {/* Input format tabs */}
+            <div>
+              <h2 className="text-lg font-semibold mb-3">入力形式</h2>
+              <InputFormatTabs
+                selectedFormat={inputFormat}
+                detectedFormat={detectedFormats.length > 0 ? detectedFormats[0].format : null}
+                onFormatChange={handleInputFormatChange}
               />
-              
-              {/* Table preview */}
-              {tableData.columns.length > 0 && (
-                <TablePreview
-                  tableData={tableData}
-                  onTableDataChange={handleTableDataChange}
-                />
-              )}
-              
-              {/* Output format tabs */}
-              <div className="mt-6">
-                <h2 className="text-lg font-semibold mb-3">出力形式</h2>
-                <FormatTabs
-                  selectedFormat={outputFormat}
-                  onFormatChange={handleOutputFormatChange}
-                />
-                
-                {/* Output area */}
-                <OutputArea
-                  tableData={tableData}
-                  outputFormat={outputFormat}
-                  formatOptions={formatOptions}
-                />
-              </div>
+
+              {/* Input format options (shown only for selected input format) */}
+              <InputOptions
+                selectedFormat={inputFormat}
+                formatOptions={formatOptions}
+                onFormatOptionsChange={handleFormatOptionsChange}
+              />
+            </div>
+
+            {/* Table preview */}
+            {tableData.columns.length > 0 && (
+              <TablePreview
+                tableData={tableData}
+                onTableDataChange={handleTableDataChange}
+              />
+            )}
+
+            {/* Output format tabs */}
+            <div>
+              <h2 className="text-lg font-semibold mb-3">出力形式</h2>
+              <FormatTabs
+                selectedFormat={outputFormat}
+                onFormatChange={handleOutputFormatChange}
+              />
+
+              {/* Output format options (shown only for selected output format) */}
+              <OutputOptions
+                selectedFormat={outputFormat}
+                formatOptions={formatOptions}
+                onFormatOptionsChange={handleFormatOptionsChange}
+              />
+
+              {/* Output area */}
+              <OutputArea
+                tableData={tableData}
+                outputFormat={outputFormat}
+                formatOptions={formatOptions}
+              />
             </div>
           </div>
-        </main>
-      </div>
-      
+        </div>
+      </main>
+
       <Footer />
     </div>
   );
