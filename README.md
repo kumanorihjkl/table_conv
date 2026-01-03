@@ -210,6 +210,9 @@ table_conv/
   - [file-saver](https://github.com/eligrey/FileSaver.js) - ファイルダウンロード
   - [react-icons](https://react-icons.github.io/react-icons/) - アイコン
 
+## その他注意
+- `2026/01/03` 本リポジトリはshai-hulud対策のために一旦[ActionsをOFFに設定](https://www.proactivedefense.jp/blog/blog-training/post-7240)しています。Actionsを必要とするような自動テストや自動デプロイなどのツールを導入する際は注意してください。
+
 ## 📄 ライセンス
 
 このプロジェクトはMITライセンスの下で公開されています。詳細は [LICENSE](LICENSE) ファイルを参照してください。
