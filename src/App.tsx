@@ -36,8 +36,8 @@ function App() {
     originalFormat: 'csv', // Default, will be updated when parsing
   });
   
-  // State for output format selection
-  const [outputFormat, setOutputFormat] = useState<FormatType>('json');
+  // State for output format selection (null = not selected yet)
+  const [outputFormat, setOutputFormat] = useState<FormatType | null>(null);
   
   // State for format options
   const [formatOptions, setFormatOptions] = useState<FormatOptions>(defaultFormatOptions);
@@ -204,27 +204,32 @@ function App() {
             )}
 
             {/* Output section - contains format tabs, options, and output */}
-            <div className="bg-white p-4 rounded-md shadow-sm border border-slate-200">
-              <h3 className="text-sm font-semibold mb-3 text-slate-700">出力形式</h3>
-              <FormatTabs
-                selectedFormat={outputFormat}
-                onFormatChange={handleOutputFormatChange}
-              />
+            {tableData.columns.length > 0 && (
+              <div className="bg-white p-4 rounded-md shadow-sm border border-slate-200">
+                <h3 className="text-sm font-semibold mb-3 text-slate-700">出力形式</h3>
+                <FormatTabs
+                  selectedFormat={outputFormat}
+                  onFormatChange={handleOutputFormatChange}
+                />
 
-              {/* Output format options (shown only for selected output format) */}
-              <OutputOptions
-                selectedFormat={outputFormat}
-                formatOptions={formatOptions}
-                onFormatOptionsChange={handleFormatOptionsChange}
-              />
+                {/* Output format options and output area (shown only when format is selected) */}
+                {outputFormat && (
+                  <>
+                    <OutputOptions
+                      selectedFormat={outputFormat}
+                      formatOptions={formatOptions}
+                      onFormatOptionsChange={handleFormatOptionsChange}
+                    />
 
-              {/* Output area */}
-              <OutputArea
-                tableData={tableData}
-                outputFormat={outputFormat}
-                formatOptions={formatOptions}
-              />
-            </div>
+                    <OutputArea
+                      tableData={tableData}
+                      outputFormat={outputFormat}
+                      formatOptions={formatOptions}
+                    />
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </main>

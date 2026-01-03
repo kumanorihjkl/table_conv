@@ -2,7 +2,7 @@ import React from 'react';
 import { FormatType, FormatOptions } from '../types';
 
 interface OutputOptionsProps {
-  selectedFormat: FormatType;
+  selectedFormat: FormatType | null;
   formatOptions: FormatOptions;
   onFormatOptionsChange: (options: Partial<FormatOptions>) => void;
 }
@@ -63,6 +63,11 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
       },
     });
   };
+
+  // Return null if no format selected
+  if (selectedFormat === null) {
+    return null;
+  }
 
   // CSV output options
   if (selectedFormat === 'csv') {

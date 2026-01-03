@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fa';
 
 interface FormatTabsProps {
-  selectedFormat: FormatType;
+  selectedFormat: FormatType | null;
   onFormatChange: (format: FormatType) => void;
 }
 
