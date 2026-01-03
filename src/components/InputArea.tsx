@@ -89,7 +89,7 @@ const InputArea: React.FC<InputAreaProps> = ({
   };
 
   return (
-    <div className="bg-white p-4 rounded-md shadow-sm border border-slate-200">
+    <div>
       <h2 className="text-lg font-semibold mb-2">テーブルデータ入力</h2>
 
       {/* Text input area */}

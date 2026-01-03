@@ -5,7 +5,7 @@ import { FaCopy, FaDownload, FaCheck } from 'react-icons/fa';
 
 interface OutputAreaProps {
   tableData: TableData;
-  outputFormat: FormatType;
+  outputFormat: FormatType | null;
   formatOptions: FormatOptions;
 }
 
@@ -15,6 +15,11 @@ const OutputArea: React.FC<OutputAreaProps> = ({
   formatOptions,
 }) => {
   const [copied, setCopied] = useState(false);
+
+  // Return null if no format selected
+  if (outputFormat === null) {
+    return null;
+  }
 
   // Generate output text based on format
   const getOutputText = (): string => {
@@ -87,9 +92,9 @@ const OutputArea: React.FC<OutputAreaProps> = ({
   const outputText = getOutputText();
 
   return (
-    <div className="bg-white p-4 rounded-md shadow-sm border border-slate-200">
+    <div className="mt-4 pt-4 border-t border-slate-200">
       <div className="flex justify-between items-center mb-3">
-        <h2 className="text-lg font-semibold">
+        <h2 className="text-lg font-semibold mb-3">
           {formatNames[outputFormat]} 出力
         </h2>
         <div className="flex space-x-2">
