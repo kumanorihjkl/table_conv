@@ -36,23 +36,21 @@ const FormatTabs: React.FC<FormatTabsProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-md shadow-sm border border-slate-200 mb-4">
-      <div className="flex">
-        {Object.entries(formatNames).map(([format, name]) => (
-          <button
-            key={format}
-            className={`flex-1 py-3 px-4 flex items-center justify-center space-x-2 transition-colors ${
-              selectedFormat === format
-                ? 'bg-blue-100 text-blue-700 border-b-2 border-blue-500'
-                : 'text-slate-600 hover:bg-slate-50 border-b border-slate-200'
-            }`}
-            onClick={() => onFormatChange(format as FormatType)}
-          >
-            <span>{formatIcons[format as FormatType]}</span>
-            <span>{name}</span>
-          </button>
-        ))}
-      </div>
+    <div className="flex border border-slate-200 rounded-md overflow-hidden">
+      {Object.entries(formatNames).map(([format, name]) => (
+        <button
+          key={format}
+          className={`flex-1 py-2 px-3 flex items-center justify-center space-x-2 transition-colors text-sm ${
+            selectedFormat === format
+              ? 'bg-blue-100 text-blue-700'
+              : 'text-slate-600 hover:bg-slate-50 bg-white'
+          }`}
+          onClick={() => onFormatChange(format as FormatType)}
+        >
+          <span>{formatIcons[format as FormatType]}</span>
+          <span>{name}</span>
+        </button>
+      ))}
     </div>
   );
 };

@@ -67,7 +67,7 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
   // CSV output options
   if (selectedFormat === 'csv') {
     return (
-      <div className="bg-white rounded-md shadow-sm border border-slate-200 p-4 mb-4">
+      <div className="mt-4 pt-4 border-t border-slate-200">
         <h3 className="text-sm font-semibold mb-3 text-slate-700">出力オプション</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -102,7 +102,7 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
   // JSON output options
   if (selectedFormat === 'json') {
     return (
-      <div className="bg-white rounded-md shadow-sm border border-slate-200 p-4 mb-4">
+      <div className="mt-4 pt-4 border-t border-slate-200">
         <h3 className="text-sm font-semibold mb-3 text-slate-700">出力オプション</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -136,7 +136,7 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
   // HTML output options
   if (selectedFormat === 'html') {
     return (
-      <div className="bg-white rounded-md shadow-sm border border-slate-200 p-4 mb-4">
+      <div className="mt-4 pt-4 border-t border-slate-200">
         <h3 className="text-sm font-semibold mb-3 text-slate-700">出力オプション</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
@@ -179,7 +179,7 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
   // TeX output options
   if (selectedFormat === 'tex') {
     return (
-      <div className="bg-white rounded-md shadow-sm border border-slate-200 p-4 mb-4">
+      <div className="mt-4 pt-4 border-t border-slate-200">
         <h3 className="text-sm font-semibold mb-3 text-slate-700">出力オプション</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center">

@@ -2,7 +2,7 @@ import React from 'react';
 import { FormatType, FormatOptions } from '../types';
 
 interface InputOptionsProps {
-  selectedFormat: FormatType;
+  selectedFormat: FormatType | null;
   formatOptions: FormatOptions;
   onFormatOptionsChange: (options: Partial<FormatOptions>) => void;
 }
@@ -31,7 +31,7 @@ const InputOptions: React.FC<InputOptionsProps> = ({
   }
 
   return (
-    <div className="bg-white rounded-md shadow-sm border border-slate-200 p-4 mb-4">
+    <div className="mt-4 pt-4 border-t border-slate-200">
       <h3 className="text-sm font-semibold mb-3 text-slate-700">入力オプション</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
