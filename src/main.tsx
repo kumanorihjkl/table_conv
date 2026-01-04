@@ -10,7 +10,6 @@ import {
   getBrowserLanguage,
   languageToPath,
   pathToLanguage,
-  type LanguageCode
 } from './i18n';
 
 // Component to handle language detection and redirect for root path

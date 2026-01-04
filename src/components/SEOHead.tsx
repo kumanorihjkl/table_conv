@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { languages, languageToPath, type LanguageCode } from '../i18n';
 
 const BASE_URL = 'https://table-conv.pages.dev';
 
@@ -71,7 +70,7 @@ const SEOHead: React.FC = () => {
 };
 
 // Update hreflang links for SEO
-function updateHreflangLinks(currentLang: string) {
+function updateHreflangLinks(_currentLang: string) {
   // Remove existing hreflang links
   document.querySelectorAll('link[hreflang]').forEach(el => el.remove());
 
