@@ -10,7 +10,7 @@ const Header: React.FC = () => {
   return (
     <>
       <header className="p-4">
-        <div className="container mx-auto max-w-5xl flex justify-between items-center">
+        <div className="container mx-auto max-w-5xl flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
           <div className="flex flex-col">
             <h1 className="text-3xl font-bold text-slate-500">TableConv</h1>
             <span className="text-sm text-slate-500">
@@ -24,7 +24,7 @@ const Header: React.FC = () => {
               </button>
             </span>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 self-end sm:self-auto">
             <LanguageSelector />
             <a
               href="https://github.com/kumanorihjkl/table_conv"
