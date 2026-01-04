@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDropzone } from 'react-dropzone';
 import { FaUpload, FaFileAlt, FaSpinner } from 'react-icons/fa';
 import { FormatType, FormatDetectionResult } from '../types';
@@ -14,6 +15,7 @@ const InputArea: React.FC<InputAreaProps> = ({
   detectedFormats,
   isProcessing,
 }) => {
+  const { t } = useTranslation();
   const [inputText, setInputText] = useState('');
 
   // Handle text input change
@@ -51,10 +53,18 @@ const InputArea: React.FC<InputAreaProps> = ({
       'application/json': ['.json'],
       'text/markdown': ['.md'],
       'text/html': ['.html'],
-      // 'text/x-tex': ['.tex'],
     },
     multiple: false,
   });
+
+  // Format display names
+  const formatNames: Record<FormatType, string> = {
+    csv: 'CSV',
+    json: 'JSON',
+    markdown: 'Markdown',
+    html: 'HTML',
+    tex: 'TeX',
+  };
 
   // Format confidence display
   const renderFormatConfidence = () => {
@@ -64,7 +74,7 @@ const InputArea: React.FC<InputAreaProps> = ({
 
     return (
       <div className="mt-2 text-sm">
-        <p className="font-medium">検出されたフォーマット:</p>
+        <p className="font-medium">{t('input.detectedFormat')}</p>
         <div className="flex flex-wrap gap-2 mt-1">
           {detectedFormats.map((format) => (
             <span
@@ -79,24 +89,15 @@ const InputArea: React.FC<InputAreaProps> = ({
     );
   };
 
-  // Format display names
-  const formatNames: Record<FormatType, string> = {
-    csv: 'CSV',
-    json: 'JSON',
-    markdown: 'Markdown',
-    html: 'HTML',
-    tex: 'TeX',
-  };
-
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-2">テーブルデータ入力</h2>
+      <h2 className="text-lg font-semibold mb-2">{t('input.title')}</h2>
 
       {/* Text input area */}
       <div className="mb-4">
         <textarea
           className="w-full h-64 p-3 border border-slate-300 rounded-md font-mono text-sm resize-none"
-          placeholder="ここにテーブルデータを入力するか、ファイルをドラッグ＆ドロップしてください..."
+          placeholder={t('input.placeholder')}
           value={inputText}
           onChange={handleTextChange}
           disabled={isProcessing}
@@ -120,23 +121,18 @@ const InputArea: React.FC<InputAreaProps> = ({
           {isProcessing ? (
             <>
               <FaSpinner className="text-2xl animate-spin mb-2" />
-              <p>処理中...</p>
+              <p>{t('common.processing')}</p>
             </>
           ) : isDragActive ? (
             <>
               <FaFileAlt className="text-2xl mb-2" />
-              <p>ファイルをドロップしてください</p>
+              <p>{t('input.dropFile')}</p>
             </>
           ) : (
             <>
               <FaUpload className="text-2xl mb-2" />
-              <p>
-                ファイルをドラッグ＆ドロップするか、クリックして選択してください
-              </p>
-              <p className="text-xs mt-1">
-                {/* 対応形式: CSV, JSON, Markdown, HTML, TeX */}
-                対応形式: CSV, JSON, Markdown, HTML
-              </p>
+              <p>{t('input.dragOrClick')}</p>
+              <p className="text-xs mt-1">{t('input.supportedFormats')}</p>
             </>
           )}
         </div>
