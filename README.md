@@ -8,7 +8,7 @@
 
 TableConv は、さまざまな形式のテーブルデータを相互に変換できる Web アプリケーションです。CSV、JSON、Markdown、HTML、TeX の間でシームレスに変換し、データを編集・整形できます。
 
-[こちら](https://table-conv.pages.dev/)から使えます。
+[こちら](https://table-conv.awef.me/)から使えます。
 
 ## 📋 目次
 
