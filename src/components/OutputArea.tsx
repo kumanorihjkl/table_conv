@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormatType, TableData, FormatOptions } from '../types';
 import { exportTable } from '../utils/tableUtils';
 import { FaCopy, FaDownload, FaCheck } from 'react-icons/fa';
 
 interface OutputAreaProps {
   tableData: TableData;
-  outputFormat: FormatType;
+  outputFormat: FormatType | null;
   formatOptions: FormatOptions;
 }
 
@@ -14,7 +15,13 @@ const OutputArea: React.FC<OutputAreaProps> = ({
   outputFormat,
   formatOptions,
 }) => {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
+
+  // Return null if no format selected
+  if (outputFormat === null) {
+    return null;
+  }
 
   // Generate output text based on format
   const getOutputText = (): string => {
@@ -26,23 +33,23 @@ const OutputArea: React.FC<OutputAreaProps> = ({
       return exportTable(tableData, outputFormat, formatOptions);
     } catch (error) {
       console.error('Error generating output:', error);
-      return '出力の生成中にエラーが発生しました。';
+      return t('output.error');
     }
   };
 
   // Handle copy to clipboard
   const handleCopy = () => {
     const outputText = getOutputText();
-    
+
     if (!outputText) return;
-    
+
     navigator.clipboard.writeText(outputText).then(
       () => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       },
       (err) => {
-        console.error('クリップボードへのコピーに失敗しました:', err);
+        console.error('Failed to copy to clipboard:', err);
       }
     );
   };
@@ -50,9 +57,9 @@ const OutputArea: React.FC<OutputAreaProps> = ({
   // Handle download
   const handleDownload = () => {
     const outputText = getOutputText();
-    
+
     if (!outputText) return;
-    
+
     // Create file extensions map
     const fileExtensions: Record<FormatType, string> = {
       csv: '.csv',
@@ -61,7 +68,7 @@ const OutputArea: React.FC<OutputAreaProps> = ({
       html: '.html',
       tex: '.tex',
     };
-    
+
     // Create blob and download
     const blob = new Blob([outputText], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
@@ -87,10 +94,10 @@ const OutputArea: React.FC<OutputAreaProps> = ({
   const outputText = getOutputText();
 
   return (
-    <div className="bg-white p-4 rounded-md shadow-sm border border-slate-200">
+    <div className="mt-4 pt-4 border-t border-slate-200">
       <div className="flex justify-between items-center mb-3">
-        <h2 className="text-lg font-semibold">
-          {formatNames[outputFormat]} 出力
+        <h2 className="text-lg font-semibold mb-3">
+          {t('output.outputTitle', { format: formatNames[outputFormat] })}
         </h2>
         <div className="flex space-x-2">
           <button
@@ -105,12 +112,12 @@ const OutputArea: React.FC<OutputAreaProps> = ({
             {copied ? (
               <>
                 <FaCheck size={12} />
-                <span>コピー済み</span>
+                <span>{t('common.copied')}</span>
               </>
             ) : (
               <>
                 <FaCopy size={12} />
-                <span>コピー</span>
+                <span>{t('common.copy')}</span>
               </>
             )}
           </button>
@@ -120,7 +127,7 @@ const OutputArea: React.FC<OutputAreaProps> = ({
             disabled={!outputText}
           >
             <FaDownload size={12} />
-            <span>ダウンロード</span>
+            <span>{t('common.download')}</span>
           </button>
         </div>
       </div>
@@ -128,7 +135,7 @@ const OutputArea: React.FC<OutputAreaProps> = ({
       <div className="border border-slate-300 rounded-md bg-slate-50 p-4 h-64 overflow-auto">
         {tableData.columns.length === 0 ? (
           <div className="flex items-center justify-center h-full text-slate-500">
-            <p>テーブルデータがありません。データを入力してください。</p>
+            <p>{t('output.noData')}</p>
           </div>
         ) : (
           <pre className="font-mono text-sm whitespace-pre-wrap">{outputText}</pre>

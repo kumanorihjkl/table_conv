@@ -8,12 +8,13 @@
 
 TableConv は、さまざまな形式のテーブルデータを相互に変換できる Web アプリケーションです。CSV、JSON、Markdown、HTML、TeX の間でシームレスに変換し、データを編集・整形できます。
 
-[こちら](https://table-conv.pages.dev/)から使えます。
+[こちら](https://table-conv.awef.me/)から使えます。
 
 ## 📋 目次
 
 - [機能概要](#機能概要)
 - [対応フォーマット](#対応フォーマット)
+- [多言語対応](#多言語対応-1)
 - [インストール方法](#インストール方法)
 - [使用方法](#使用方法)
 - [開発ガイド](#開発ガイド)
@@ -47,6 +48,13 @@ TableConv は以下の主要機能を提供します：
 - クリップボードへのコピー
 - ファイルダウンロード
 
+### 多言語対応
+
+- 日本語・英語・中国語（簡体字）に対応
+- URLパスによる言語切り替え（`/jp/`, `/en/`, `/cn/`）
+- ブラウザの言語設定に基づく自動リダイレクト
+- 多言語SEO対応（hreflang、言語別メタタグ）
+
 ## 📊 対応フォーマット
 
 ### CSV
@@ -77,6 +85,19 @@ TableConv は以下の主要機能を提供します：
 - tabular 環境形式
 - 列揃え設定（l, c, r）
 - 罫線オプション（縦線・横線）
+
+## 🌐 多言語対応
+
+TableConvは以下の言語に対応しています：
+
+| 言語 | URL |
+|------|-----|
+| 日本語 | `/jp/` |
+| English | `/en/` |
+| 中文（简体） | `/cn/` |
+
+- ルートURL（`/`）にアクセスすると、ブラウザの言語設定に基づいて適切な言語ページにリダイレクトされます
+- ヘッダーの言語セレクターから手動で言語を切り替えることもできます
 
 ## 📥 インストール方法
 
@@ -177,20 +198,24 @@ table_conv/
 ├── public/              # 静的ファイル
 ├── src/                 # ソースコード
 │   ├── components/      # Reactコンポーネント
-│   │   ├── Header.tsx   # ヘッダーコンポーネント
-│   │   ├── Sidebar.tsx  # サイドバーコンポーネント
+│   │   ├── Header.tsx   # ヘッダー（言語セレクター含む）
+│   │   ├── InputArea.tsx    # 入力エリア
+│   │   ├── TablePreview.tsx # テーブルプレビュー
+│   │   ├── OutputArea.tsx   # 出力エリア
+│   │   ├── SEOHead.tsx      # 多言語SEOメタタグ
+│   │   ├── LanguageSelector.tsx # 言語切り替え
 │   │   └── ...          # その他コンポーネント
+│   ├── i18n/            # 多言語対応
+│   │   ├── index.ts     # i18next設定
+│   │   └── locales/     # 翻訳ファイル (ja, en, zh)
 │   ├── utils/           # ユーティリティ関数
 │   │   ├── csvUtils.ts  # CSV処理ユーティリティ
 │   │   ├── jsonUtils.ts # JSON処理ユーティリティ
 │   │   └── ...          # その他ユーティリティ
 │   ├── types/           # TypeScript型定義
-│   ├── hooks/           # カスタムReactフック
 │   ├── App.tsx          # メインアプリケーション
-│   └── main.tsx         # エントリーポイント
+│   └── main.tsx         # エントリーポイント（ルーティング）
 ├── index.html           # HTMLテンプレート
-├── tailwind.config.js   # Tailwind CSS設定
-├── postcss.config.js    # PostCSS設定
 ├── tsconfig.json        # TypeScript設定
 ├── vite.config.ts       # Vite設定
 └── package.json         # プロジェクト設定
@@ -209,6 +234,11 @@ table_conv/
   - [papaparse](https://www.papaparse.com/) - CSV解析
   - [file-saver](https://github.com/eligrey/FileSaver.js) - ファイルダウンロード
   - [react-icons](https://react-icons.github.io/react-icons/) - アイコン
+  - [i18next](https://www.i18next.com/) / [react-i18next](https://react.i18next.com/) - 多言語対応
+  - [react-router-dom](https://reactrouter.com/) - ルーティング（言語別URL）
+
+## その他注意
+- `2026/01/03` 本リポジトリはshai-hulud対策のために一旦[ActionsをOFFに設定](https://www.proactivedefense.jp/blog/blog-training/post-7240)しています。Actionsを必要とするような自動テストや自動デプロイなどのツールを導入する際は注意してください。
 
 ## 📄 ライセンス
 
