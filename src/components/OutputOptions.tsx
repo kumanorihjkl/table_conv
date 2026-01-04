@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormatType, FormatOptions } from '../types';
 
 interface OutputOptionsProps {
@@ -12,6 +13,8 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
   formatOptions,
   onFormatOptionsChange,
 }) => {
+  const { t } = useTranslation();
+
   // Handle JSON options change
   const handleJsonOptionChange = (
     key: keyof FormatOptions['json'],
@@ -73,30 +76,30 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
   if (selectedFormat === 'csv') {
     return (
       <div className="mt-4 pt-4 border-t border-slate-200">
-        <h3 className="text-sm font-semibold mb-3 text-slate-700">出力オプション</h3>
+        <h3 className="text-sm font-semibold mb-3 text-slate-700">{t('options.outputOptions')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-1 text-slate-600">区切り文字</label>
+            <label className="block text-sm font-medium mb-1 text-slate-600">{t('options.delimiter')}</label>
             <select
               className="w-full p-2 border border-slate-300 rounded-md text-sm"
               value={formatOptions.csv.delimiter}
               onChange={(e) => handleCsvOutputOptionChange('delimiter', e.target.value)}
             >
-              <option value=",">カンマ (,)</option>
-              <option value=";">セミコロン (;)</option>
-              <option value={'\t'}>タブ</option>
+              <option value=",">{t('options.comma')}</option>
+              <option value=";">{t('options.semicolon')}</option>
+              <option value={'\t'}>{t('options.tab')}</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 text-slate-600">エンコーディング</label>
+            <label className="block text-sm font-medium mb-1 text-slate-600">{t('options.encoding')}</label>
             <select
               className="w-full p-2 border border-slate-300 rounded-md text-sm"
               value={formatOptions.csv.encoding}
               onChange={(e) => handleCsvOutputOptionChange('encoding', e.target.value)}
             >
-              <option value="utf8">UTF-8</option>
-              <option value="utf8-bom">UTF-8 (BOM付き)</option>
-              <option value="shift-jis">Shift-JIS</option>
+              <option value="utf8">{t('options.utf8')}</option>
+              <option value="utf8-bom">{t('options.utf8Bom')}</option>
+              <option value="shift-jis">{t('options.shiftJis')}</option>
             </select>
           </div>
         </div>
@@ -108,10 +111,10 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
   if (selectedFormat === 'json') {
     return (
       <div className="mt-4 pt-4 border-t border-slate-200">
-        <h3 className="text-sm font-semibold mb-3 text-slate-700">出力オプション</h3>
+        <h3 className="text-sm font-semibold mb-3 text-slate-700">{t('options.outputOptions')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-1 text-slate-600">インデント</label>
+            <label className="block text-sm font-medium mb-1 text-slate-600">{t('options.indent')}</label>
             <input
               type="number"
               className="w-full p-2 border border-slate-300 rounded-md text-sm"
@@ -130,7 +133,7 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
               onChange={(e) => handleJsonOptionChange('includeLineBreaks', e.target.checked)}
             />
             <label htmlFor="includeLineBreaks" className="text-sm text-slate-600">
-              改行を含める
+              {t('options.includeLineBreaks')}
             </label>
           </div>
         </div>
@@ -142,24 +145,24 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
   if (selectedFormat === 'html') {
     return (
       <div className="mt-4 pt-4 border-t border-slate-200">
-        <h3 className="text-sm font-semibold mb-3 text-slate-700">出力オプション</h3>
+        <h3 className="text-sm font-semibold mb-3 text-slate-700">{t('options.outputOptions')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-1 text-slate-600">テーブルクラス</label>
+            <label className="block text-sm font-medium mb-1 text-slate-600">{t('options.tableClass')}</label>
             <input
               type="text"
               className="w-full p-2 border border-slate-300 rounded-md text-sm"
-              placeholder="例: table table-striped"
+              placeholder={t('options.tableClassPlaceholder')}
               value={formatOptions.html.tableClass}
               onChange={(e) => handleHtmlOptionChange('tableClass', e.target.value)}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 text-slate-600">テーブルID</label>
+            <label className="block text-sm font-medium mb-1 text-slate-600">{t('options.tableId')}</label>
             <input
               type="text"
               className="w-full p-2 border border-slate-300 rounded-md text-sm"
-              placeholder="例: myTable"
+              placeholder={t('options.tableIdPlaceholder')}
               value={formatOptions.html.tableId}
               onChange={(e) => handleHtmlOptionChange('tableId', e.target.value)}
             />
@@ -173,7 +176,7 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
               onChange={(e) => handleHtmlOptionChange('includeTheadTbody', e.target.checked)}
             />
             <label htmlFor="includeTheadTbody" className="text-sm text-slate-600">
-              thead/tbody タグを含める
+              {t('options.includeTheadTbody')}
             </label>
           </div>
         </div>
@@ -185,7 +188,7 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
   if (selectedFormat === 'tex') {
     return (
       <div className="mt-4 pt-4 border-t border-slate-200">
-        <h3 className="text-sm font-semibold mb-3 text-slate-700">出力オプション</h3>
+        <h3 className="text-sm font-semibold mb-3 text-slate-700">{t('options.outputOptions')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center">
             <input
@@ -196,7 +199,7 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
               onChange={(e) => handleTexOptionChange('includeVerticalLines', e.target.checked)}
             />
             <label htmlFor="includeVerticalLines" className="text-sm text-slate-600">
-              縦罫線を含める
+              {t('options.includeVerticalLines')}
             </label>
           </div>
           <div className="flex items-center">
@@ -208,7 +211,7 @@ const OutputOptions: React.FC<OutputOptionsProps> = ({
               onChange={(e) => handleTexOptionChange('includeHorizontalLines', e.target.checked)}
             />
             <label htmlFor="includeHorizontalLines" className="text-sm text-slate-600">
-              横罫線を含める
+              {t('options.includeHorizontalLines')}
             </label>
           </div>
         </div>

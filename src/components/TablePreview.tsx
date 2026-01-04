@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TableData, TableRow } from '../types';
 import { FaSort, FaSortUp, FaSortDown, FaTrash, FaPlus, FaPen } from 'react-icons/fa';
 
@@ -11,17 +12,18 @@ const TablePreview: React.FC<TablePreviewProps> = ({
   tableData,
   onTableDataChange,
 }) => {
+  const { t } = useTranslation();
   const [editingCell, setEditingCell] = useState<{
     rowIndex: number;
     columnId: string;
     value: string;
   } | null>(null);
-  
+
   const [editingColumnName, setEditingColumnName] = useState<{
     columnId: string;
     name: string;
   } | null>(null);
-  
+
   const [sortConfig, setSortConfig] = useState<{
     columnId: string;
     direction: 'asc' | 'desc';
@@ -35,7 +37,7 @@ const TablePreview: React.FC<TablePreviewProps> = ({
   // Handle cell value change
   const handleCellChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!editingCell) return;
-    
+
     setEditingCell({
       ...editingCell,
       value: e.target.value,
@@ -45,9 +47,9 @@ const TablePreview: React.FC<TablePreviewProps> = ({
   // Handle cell edit save
   const handleCellBlur = () => {
     if (!editingCell) return;
-    
+
     const { rowIndex, columnId, value } = editingCell;
-    
+
     // Update the table data
     const updatedRows = [...tableData.rows];
     updatedRows[rowIndex] = {
@@ -60,12 +62,12 @@ const TablePreview: React.FC<TablePreviewProps> = ({
         },
       },
     };
-    
+
     onTableDataChange({
       ...tableData,
       rows: updatedRows,
     });
-    
+
     setEditingCell(null);
   };
 
@@ -77,7 +79,7 @@ const TablePreview: React.FC<TablePreviewProps> = ({
   // Handle column name change
   const handleColumnNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!editingColumnName) return;
-    
+
     setEditingColumnName({
       ...editingColumnName,
       name: e.target.value,
@@ -87,9 +89,9 @@ const TablePreview: React.FC<TablePreviewProps> = ({
   // Handle column name edit save
   const handleColumnNameBlur = () => {
     if (!editingColumnName) return;
-    
+
     const { columnId, name } = editingColumnName;
-    
+
     // Update the table data
     const updatedColumns = tableData.columns.map(column => {
       if (column.id === columnId) {
@@ -97,44 +99,44 @@ const TablePreview: React.FC<TablePreviewProps> = ({
       }
       return column;
     });
-    
+
     onTableDataChange({
       ...tableData,
       columns: updatedColumns,
     });
-    
+
     setEditingColumnName(null);
   };
 
   // Handle sort
   const handleSort = (columnId: string) => {
     let direction: 'asc' | 'desc' = 'asc';
-    
+
     if (sortConfig && sortConfig.columnId === columnId) {
       direction = sortConfig.direction === 'asc' ? 'desc' : 'asc';
     }
-    
+
     setSortConfig({ columnId, direction });
-    
+
     // Sort the rows
     const sortedRows = [...tableData.rows].sort((a, b) => {
       const valueA = a.cells[columnId]?.value || '';
       const valueB = b.cells[columnId]?.value || '';
-      
+
       // Try to sort numerically if both values are numbers
       const numA = Number(valueA);
       const numB = Number(valueB);
-      
+
       if (!isNaN(numA) && !isNaN(numB)) {
         return direction === 'asc' ? numA - numB : numB - numA;
       }
-      
+
       // Otherwise sort alphabetically
       return direction === 'asc'
         ? valueA.localeCompare(valueB)
         : valueB.localeCompare(valueA);
     });
-    
+
     // Update row indices
     const updatedRows = sortedRows.map((row, index) => ({
       ...row,
@@ -146,7 +148,7 @@ const TablePreview: React.FC<TablePreviewProps> = ({
         ])
       ),
     }));
-    
+
     onTableDataChange({
       ...tableData,
       rows: updatedRows,
@@ -166,7 +168,7 @@ const TablePreview: React.FC<TablePreviewProps> = ({
           ])
         ),
       }));
-    
+
     onTableDataChange({
       ...tableData,
       rows: updatedRows,
@@ -177,9 +179,9 @@ const TablePreview: React.FC<TablePreviewProps> = ({
   const handleAddRow = () => {
     const newRowIndex = tableData.rows.length;
     const newRowId = Math.random().toString(36).substring(2, 9);
-    
+
     const cells: Record<string, any> = {};
-    
+
     tableData.columns.forEach(column => {
       cells[column.id] = {
         value: '',
@@ -187,13 +189,13 @@ const TablePreview: React.FC<TablePreviewProps> = ({
         col: column.index,
       };
     });
-    
+
     const newRow: TableRow = {
       id: newRowId,
       index: newRowIndex,
       cells,
     };
-    
+
     onTableDataChange({
       ...tableData,
       rows: [...tableData.rows, newRow],
@@ -205,7 +207,7 @@ const TablePreview: React.FC<TablePreviewProps> = ({
     if (!sortConfig || sortConfig.columnId !== columnId) {
       return <FaSort className="text-slate-400" />;
     }
-    
+
     return sortConfig.direction === 'asc' ? (
       <FaSortUp className="text-blue-600" />
     ) : (
@@ -217,9 +219,7 @@ const TablePreview: React.FC<TablePreviewProps> = ({
   if (tableData.columns.length === 0) {
     return (
       <div className="bg-white p-6 rounded-md shadow-sm border border-slate-200 text-center">
-        <p className="text-slate-500">
-          テーブルデータがありません。データを入力してください。
-        </p>
+        <p className="text-slate-500">{t('table.noData')}</p>
       </div>
     );
   }
@@ -227,16 +227,16 @@ const TablePreview: React.FC<TablePreviewProps> = ({
   return (
     <div className="bg-white rounded-md shadow-sm border border-slate-200 overflow-hidden">
       <div className="p-4 border-b border-slate-200 flex justify-between items-center">
-        <h2 className="text-lg font-semibold">テーブルプレビュー</h2>
+        <h2 className="text-lg font-semibold">{t('table.title')}</h2>
         <button
           className="px-3 py-1 bg-blue-100 text-blue-700 rounded-md flex items-center space-x-1 hover:bg-blue-200 transition-colors"
           onClick={handleAddRow}
         >
           <FaPlus size={12} />
-          <span>行を追加</span>
+          <span>{t('table.addRow')}</span>
         </button>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead className="bg-slate-100">
@@ -314,7 +314,7 @@ const TablePreview: React.FC<TablePreviewProps> = ({
                   <button
                     className="text-red-500 hover:text-red-700 focus:outline-none"
                     onClick={() => handleDeleteRow(rowIndex)}
-                    title="行を削除"
+                    title={t('table.deleteRow')}
                   >
                     <FaTrash size={14} />
                   </button>
@@ -324,10 +324,10 @@ const TablePreview: React.FC<TablePreviewProps> = ({
           </tbody>
         </table>
       </div>
-      
+
       <div className="p-3 border-t border-slate-200 bg-slate-50 text-sm text-slate-500">
         <p>
-          {tableData.rows.length} 行 × {tableData.columns.length} 列
+          {t('table.rowsColumns', { rows: tableData.rows.length, columns: tableData.columns.length })}
         </p>
       </div>
     </div>

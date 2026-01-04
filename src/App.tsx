@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import InputArea from './components/InputArea';
@@ -8,37 +9,40 @@ import TablePreview from './components/TablePreview';
 import FormatTabs from './components/FormatTabs';
 import OutputOptions from './components/OutputOptions';
 import OutputArea from './components/OutputArea';
-import { 
-  TableData, 
-  FormatType, 
-  FormatOptions, 
-  FormatDetectionResult 
+import SEOHead from './components/SEOHead';
+import {
+  TableData,
+  FormatType,
+  FormatOptions,
+  FormatDetectionResult
 } from './types';
-import { 
-  detectFormat, 
-  parseTable, 
-  defaultFormatOptions 
+import {
+  detectFormat,
+  parseTable,
+  defaultFormatOptions
 } from './utils/tableUtils';
 
 function App() {
+  const { t } = useTranslation();
+
   // State for input text and detected formats
   const [inputText, setInputText] = useState('');
   const [detectedFormats, setDetectedFormats] = useState<FormatDetectionResult[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
-  
+
   // State for input format selection (null = auto-detect mode)
   const [inputFormat, setInputFormat] = useState<FormatType | null>(null);
-  
+
   // State for table data
   const [tableData, setTableData] = useState<TableData>({
     columns: [],
     rows: [],
     originalFormat: 'csv', // Default, will be updated when parsing
   });
-  
+
   // State for output format selection (null = not selected yet)
   const [outputFormat, setOutputFormat] = useState<FormatType | null>(null);
-  
+
   // State for format options
   const [formatOptions, setFormatOptions] = useState<FormatOptions>(defaultFormatOptions);
 
@@ -106,11 +110,11 @@ function App() {
   // Handle input format change
   const handleInputFormatChange = (format: FormatType) => {
     setInputFormat(format);
-    
+
     // Re-parse with new format
     if (inputText.trim() !== '') {
       setIsProcessing(true);
-      
+
       try {
         const parsedData = parseTable(inputText, format, formatOptions);
         setTableData(parsedData);
@@ -161,6 +165,7 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
+      <SEOHead />
       <Header />
 
       {/* Main content */}
@@ -178,7 +183,7 @@ function App() {
               {/* Input format tabs (shown only when there's input) */}
               {inputText.trim() && (
                 <div className="mt-4 pt-4 border-t border-slate-200">
-                  <h3 className="text-sm font-semibold mb-3 text-slate-700">入力形式</h3>
+                  <h3 className="text-sm font-semibold mb-3 text-slate-700">{t('input.inputFormat')}</h3>
                   <InputFormatTabs
                     selectedFormat={inputFormat}
                     detectedFormat={detectedFormats.length > 0 ? detectedFormats[0].format : null}
@@ -206,7 +211,7 @@ function App() {
             {/* Output section - contains format tabs, options, and output */}
             {tableData.columns.length > 0 && (
               <div className="bg-white p-4 rounded-md shadow-sm border border-slate-200">
-                <h3 className="text-sm font-semibold mb-3 text-slate-700">出力形式</h3>
+                <h3 className="text-sm font-semibold mb-3 text-slate-700">{t('output.title')}</h3>
                 <FormatTabs
                   selectedFormat={outputFormat}
                   onFormatChange={handleOutputFormatChange}
