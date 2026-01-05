@@ -183,7 +183,23 @@ npm run build
 
 # ビルド結果のプレビュー
 npm run preview
+
+# PWA/OGP用アイコンの生成
+npm run generate-icons
 ```
+
+### アイコンの更新
+
+`public/favicon.svg` を変更した場合は、以下のコマンドでPWA用アイコンとOGP画像を再生成してください：
+
+```bash
+npm run generate-icons
+```
+
+これにより以下のファイルが生成されます：
+- `public/icon-192.png` - PWA用アイコン (192x192)
+- `public/icon-512.png` - PWA用アイコン (512x512)
+- `public/ogp-image.png` - Twitter/OGP用画像 (1200x630)
 
 ### コード規約
 

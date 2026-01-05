@@ -1,0 +1,33 @@
+{
+  "name": "TableConv - CSV/JSON/Markdown/HTML/TeX Table Converter",
+  "short_name": "TableConv",
+  "description": "Free online tool to convert table data between CSV, JSON, Markdown, HTML, and TeX formats.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["utilities", "productivity"],
+  "lang": "ja",
+  "dir": "ltr"
+}
