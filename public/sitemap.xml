@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://table-conv.awef.me/jp/</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://table-conv.awef.me/jp/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://table-conv.awef.me/en/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://table-conv.awef.me/cn/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://table-conv.awef.me/en/" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://table-conv.awef.me/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://table-conv.awef.me/jp/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://table-conv.awef.me/en/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://table-conv.awef.me/cn/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://table-conv.awef.me/en/" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://table-conv.awef.me/cn/</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://table-conv.awef.me/jp/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://table-conv.awef.me/en/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://table-conv.awef.me/cn/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://table-conv.awef.me/en/" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
