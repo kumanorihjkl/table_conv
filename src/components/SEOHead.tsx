@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-const BASE_URL = 'https://table-conv.pages.dev';
+const BASE_URL = 'https://table-conv.awef.me';
 
 const SEOHead: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -91,11 +91,11 @@ function updateHreflangLinks(_currentLang: string) {
     head.appendChild(link);
   });
 
-  // Add x-default (points to root which redirects)
+  // Add x-default (points to English as default)
   const defaultLink = document.createElement('link');
   defaultLink.rel = 'alternate';
   defaultLink.hreflang = 'x-default';
-  defaultLink.href = `${BASE_URL}/`;
+  defaultLink.href = `${BASE_URL}/en/`;
   head.appendChild(defaultLink);
 }
 
