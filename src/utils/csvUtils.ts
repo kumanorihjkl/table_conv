@@ -18,11 +18,11 @@ export const parseCSV = (csvText: string, options: CSVOptions): TableData => {
     console.error('CSV parsing errors:', parseResult.errors);
   }
 
-  let data: any[] = parseResult.data;
+  let data = parseResult.data as Record<string, string>[];
   // When header is false, Papa.parse returns an array of arrays
   // We need to convert it to an array of objects with column keys
   if (!options.hasHeader && data.length > 0 && Array.isArray(data[0])) {
-    const arrayData = data as string[][];
+    const arrayData = data as unknown as string[][];
     data = arrayData.map(row => {
       const obj: Record<string, string> = {};
       row.forEach((value, index) => {

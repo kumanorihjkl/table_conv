@@ -40,7 +40,7 @@ export const parseJSON = (jsonText: string): TableData => {
 };
 
 // Parse array of objects (most common JSON table format)
-const parseArrayOfObjects = (data: any[]): TableData => {
+const parseArrayOfObjects = (data: unknown[]): TableData => {
   if (data.length === 0) {
     return {
       columns: [],
@@ -72,7 +72,7 @@ const parseArrayOfObjects = (data: any[]): TableData => {
       let value = '';
       
       if (typeof item === 'object' && item !== null && column.id in item) {
-        const cellValue = item[column.id];
+        const cellValue = (item as Record<string, unknown>)[column.id];
         
         // Handle different value types
         if (typeof cellValue === 'object' && cellValue !== null) {
@@ -104,7 +104,7 @@ const parseArrayOfObjects = (data: any[]): TableData => {
 };
 
 // Fallback parser for non-standard JSON
-const parseFallback = (data: any): TableData => {
+const parseFallback = (data: unknown): TableData => {
   // Convert to a simple key-value table
   const columns: TableColumn[] = [
     { id: 'key', name: 'Key', index: 0 },
@@ -114,15 +114,16 @@ const parseFallback = (data: any): TableData => {
   const rows: TableRow[] = [];
   
   // Recursive function to flatten JSON
-  const flattenJSON = (obj: any, prefix = '') => {
+  const flattenJSON = (obj: unknown, prefix = '') => {
     if (typeof obj === 'object' && obj !== null) {
-      Object.keys(obj).forEach((key) => {
+      const record = obj as Record<string, unknown>;
+      Object.keys(record).forEach((key) => {
         const fullKey = prefix ? `${prefix}.${key}` : key;
-        
-        if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
-          flattenJSON(obj[key], fullKey);
+
+        if (typeof record[key] === 'object' && record[key] !== null && !Array.isArray(record[key])) {
+          flattenJSON(record[key], fullKey);
         } else {
-          const value = typeof obj[key] === 'object' ? JSON.stringify(obj[key]) : String(obj[key]);
+          const value = typeof record[key] === 'object' ? JSON.stringify(record[key]) : String(record[key]);
           
           rows.push({
             id: generateId(),
@@ -202,7 +203,7 @@ export const detectJSON = (text: string): number => {
     }
     
     return confidence;
-  } catch (e) {
+  } catch {
     // Not valid JSON
     return 0;
   }

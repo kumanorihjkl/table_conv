@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TableData, TableRow } from '../types';
+import { TableData, TableRow, TableCell } from '../types';
 import { FaSort, FaSortUp, FaSortDown, FaTrash, FaPlus, FaPen } from 'react-icons/fa';
 
 interface TablePreviewProps {
@@ -180,7 +180,7 @@ const TablePreview: React.FC<TablePreviewProps> = ({
     const newRowIndex = tableData.rows.length;
     const newRowId = Math.random().toString(36).substring(2, 9);
 
-    const cells: Record<string, any> = {};
+    const cells: Record<string, TableCell> = {};
 
     tableData.columns.forEach(column => {
       cells[column.id] = {

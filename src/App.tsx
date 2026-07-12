@@ -105,6 +105,9 @@ function App() {
         setIsProcessing(false);
       }
     }, 0);
+    // Intentionally re-parse only when the selected input format changes;
+    // text and option changes are re-parsed by their own handlers.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputFormat]);
 
   // Handle input format change

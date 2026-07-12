@@ -60,7 +60,7 @@ const SEOHead: React.FC = () => {
     document.documentElement.lang = langMap[lang || 'jp'] || 'ja';
 
     // Update hreflang links
-    updateHreflangLinks(lang || 'jp');
+    updateHreflangLinks();
 
     // Update JSON-LD
     updateJsonLd(t('meta.description'), lang || 'jp');
@@ -70,7 +70,7 @@ const SEOHead: React.FC = () => {
 };
 
 // Update hreflang links for SEO
-function updateHreflangLinks(_currentLang: string) {
+function updateHreflangLinks() {
   // Remove existing hreflang links
   document.querySelectorAll('link[hreflang]').forEach(el => el.remove());
 
